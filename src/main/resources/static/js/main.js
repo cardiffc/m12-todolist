@@ -1,43 +1,81 @@
-$(function() {
-    const appendBook = function(data) {
-        var bookCode = '<h4>' + data.name + '</h4>' + 'Год выпуска:' + data.year;
-        $('#book-list').append('<div>' + bookCode + '</div>');
+$(function(){
+
+    const appendBook = function(data){
+        var bookCode = '<a href="#" class="book-link" data-id="' +
+            data.id + '">' + data.name + '</a><br>';
+        $('#book-list')
+            .append('<div>' + bookCode + '</div>');
     };
-
     //Loading books on load page
-    $.get('/books/', function(response)
-    {
-        for (i in response) {
-          appendBook(response[i]);
-        }
-
-    });
+//    $.get('/books/', function(response)
+//    {
+//        for(i in response) {
+//            appendBook(response[i]);
+//        }
+//    });
 
     //Show adding book form
-    $('#show-add-book-form').click(function(){
-        $('#book-form').css('display','flex');
+    $('#show-add-do-form').click(function(){
+        $('#add-do-form').css('display', 'flex');
     });
 
-    // Closing adding book form
-    $('#book-form').click(function (event) {
-        if (event.target === this) {
-            $(this).css('display','none');
+    //Closing adding book form
+    $('#add-do-form').click(function(event){
+        if(event.target === this) {
+            $(this).css('display', 'none');
         }
+    });
+
+    // Show all do form
+    $('#do-list').click(function (){
+        $('#all-do-form').css('display','flex');
+    });
+
+    // Close all do list
+    $('#all-do-form').click(function(event){
+        if(event.target === this) {
+            $(this).css('display', 'none');
+        }
+    });
+
+
+    //Getting book
+    $(document).on('click', '.book-link', function(){
+        var link = $(this);
+        var bookId = link.data('id');
+        $.ajax({
+            method: "GET",
+            url: '/books/' + bookId,
+            success: function(response)
+            {
+                var code = '<span>Год выпуска:' + response.year + '</span>';
+                link.parent().append(code);
+            },
+            error: function(response)
+            {
+                if(response.status == 404) {
+                    alert('Книга не найдена!');
+                }
+            }
+        });
+        return false;
     });
 
     //Adding book
-    $('#save-book').click(function () {
+    $('#save-book').click(function()
+    {
         var data = $('#book-form form').serialize();
         $.ajax({
             method: "POST",
             url: '/books/',
             data: data,
-            success: function (response) {
-                $('#book-form').css('display','none');
+            success: function(response)
+            {
+                $('#book-form').css('display', 'none');
                 var book = {};
-                book.id = response.id;
+                book.id = response;
                 var dataArray = $('#book-form form').serializeArray();
-                for (i in dataArray) {
+                for(i in dataArray) {
                     book[dataArray[i]['name']] = dataArray[i]['value'];
                 }
                 appendBook(book);
