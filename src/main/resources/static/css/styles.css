@@ -3,7 +3,7 @@
 }
 
 
-#add-do-form {
+#add-task-form {
     display: none;
     align-items: center;
     justify-content: center;
@@ -15,19 +15,19 @@
     z-index: 10;
     background-color: #88888878;
 }
-#add-do-form form {
+#add-task-form form {
     background-color: white;
     border: 1px solid #333;
     width: 300px;
     padding: 20px;
 }
-#add-do-form h2 {
+#add-task-form h2 {
     margin-top: 0;
 }
-#add-do-form label {
+#add-task-form label {
     display: block;
 }
-#add-do-form form > * {
+#add-task-form form > * {
     margin-bottom: 5px;
 }
 #all-do-form {

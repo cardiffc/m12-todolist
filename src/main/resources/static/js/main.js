@@ -15,12 +15,12 @@ $(function(){
 //    });
 
     //Show adding book form
-    $('#show-add-do-form').click(function(){
-        $('#add-do-form').css('display', 'flex');
+    $('#show-add-task-form').click(function(){
+        $('#add-task-form').css('display', 'flex');
     });
 
     //Closing adding book form
-    $('#add-do-form').click(function(event){
+    $('#add-task-form').click(function(event){
         if(event.target === this) {
             $(this).css('display', 'none');
         }
