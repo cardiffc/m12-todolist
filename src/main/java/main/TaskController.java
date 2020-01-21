@@ -11,6 +11,7 @@ public class TaskController {
     @RequestMapping(value = "/tasks/", method = RequestMethod.GET)
     public List<Task> lustTasks () {
         return Storage.getAllTasks();
+
     }
 
     @RequestMapping(value = "/tasks/", method = RequestMethod.POST)
